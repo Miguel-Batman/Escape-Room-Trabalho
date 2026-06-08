@@ -13,6 +13,24 @@ def digitar(mensagem, cor, eixoX, eixoY, tamanho):#funcao de mostrar escritas
         fonte = pygame.font.SysFont("Arial", tamanho, bold=False, italic=False)
         texto = fonte.render(mensagem, True, cor)
         tela.blit(texto,[(int(eixoX)),(int(eixoY))])
+
+def dialogos(mensagem, cor, tamanho):#funcao de mostrar escritas com caixa de dialogo
+    digitar(mensagem, cor, 100, 500, tamanho)
+    
+
+
+def andar():
+    dt = clock.tick(60) / 1000
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_w]:
+         player_pos.y -= 200 * dt
+    if keys[pygame.K_s]:
+         player_pos.y += 200 * dt
+    if keys[pygame.K_a]:
+         player_pos.x -= 200 * dt
+    if keys[pygame.K_d]:
+         player_pos.x += 200 * dt
+    
         
 #imagens
 playn = pygame.image.load('imagens/playn.png')#play normal  
@@ -26,18 +44,26 @@ titulorect = titulo.get_rect(center=(400,150))
 
 israodio = pygame.image.load('imagens/israodio.gif')
 perso1 = pygame.image.load('imagens/pers1.png')
+perso1rect = perso1.get_rect(center=(600, 100))
+
+mapainicial = pygame.image.load('imagens/mapa inicial.png')
+computador = pygame.image.load('imagens/computador.png')
+comprect = computador.get_rect(bottomleft=(509, 50))
+computador = pygame.transform.scale(computador, (40, 40))
 #audios
 tenso = mixer.Sound('audios/tenso.mp3')
 zap = mixer.Sound('audios/whatsapp.mp3')
-zap.set_volume(1)
+zap.set_volume(0.1)
 
 #posicionamento
-
+dt = 0
+player_pos = pygame.Vector2(570, 70)
 
 
 run = True
 click = True
 s = True
+quarto1 = True
 while run:
     #evento pra fechar a aba
     for event in pygame.event.get():
@@ -74,12 +100,36 @@ while run:
         digitar("VOCE NAO FEZ O TRABALHO", "dark red", 100, 520, 50)
         pygame.display.update()
         zap.play()
-        time.sleep(2)
-        zap.play()
-        time.sleep(2)
+        time.sleep(1)
+        # zap.play()
+        # time.sleep(2)
         s = False
-    
 
+
+    while quarto1:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+       
+        
+        tela.blit(mapainicial,(0,0))
+        tela.blit(computador, comprect)
+        tela.blit(perso1, player_pos)
+        andar()
+        if player_pos.distance_to(comprect.center) < 30:
+            digitar("E", "black", 500, 20, 30)
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_e]:
+                dialogos('''O computador no qual vc deveria ter feito o trabalho
+                         Bom agora ja era''', "black", 30)
+            
+                pygame.display.update()
+                
+                
+        pygame.display.update()
+        
 
     clock.tick(60)
+    
     
