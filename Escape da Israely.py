@@ -43,8 +43,13 @@ titulo = pygame.image.load('imagens/titulo.png')
 titulorect = titulo.get_rect(center=(400,150))
 
 israodio = pygame.image.load('imagens/israodio.gif')
+#personagens
 perso1 = pygame.image.load('imagens/pers1.png')
 perso1rect = perso1.get_rect(center=(600, 100))
+perso2 = pygame.image.load('imagens/pers2.png')
+perso2rect = perso2.get_rect(center=(600, 100))
+israely = pygame.image.load('imagens/israely.png')
+israelyrect = israely.get_rect(center=(400, 100))
 
 mapainicial = pygame.image.load('imagens/mapa inicial.png')
 computador = pygame.image.load('imagens/computador.png')
@@ -59,6 +64,15 @@ zap.set_volume(0.1)
 dt = 0
 player_pos = pygame.Vector2(570, 70)
 
+personagem = input("Escolha entre Homem ou Mulher: \n")
+if personagem.lower() == "homem":
+    personagem = perso1
+    personagem_rect = perso1rect
+elif personagem.lower() == "mulher":
+    personagem = perso2
+    personagem_rect = perso2rect
+else:
+    pass
 
 run = True
 click = True
@@ -76,7 +90,8 @@ while run:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-    
+                
+        
         tenso.play()
         tela.blit(detail,(0,0))
     
@@ -115,7 +130,7 @@ while run:
         
         tela.blit(mapainicial,(0,0))
         tela.blit(computador, comprect)
-        tela.blit(perso1, player_pos)
+        tela.blit(personagem, player_pos)
         andar()
         if player_pos.distance_to(comprect.center) < 30:
             digitar("E", "black", 500, 20, 30)
