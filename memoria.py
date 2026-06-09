@@ -19,6 +19,21 @@ def digitar(mensagem, cor, eixoX, eixoY):
         fonte = pygame.font.SysFont("Arial", 40, bold=False, italic=False)
         texto = fonte.render(mensagem, True, cor)
         tela.blit(texto,[(int(eixoX)),(int(eixoY))])
+#funcao pra mostrar dialogos em um espaco especifico
+def dialogos(mensagem, cor, tamanho):
+    digitar(mensagem, cor, 100, 500, tamanho)
+    #funcao de movimento do personagem
+def andar():
+    dt = clock.tick(60) / 1000
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_w]:
+         player_pos.y -= 200 * dt
+    if keys[pygame.K_s]:
+         player_pos.y += 200 * dt
+    if keys[pygame.K_a]:
+         player_pos.x -= 200 * dt
+    if keys[pygame.K_d]:
+         player_pos.x += 200 * dt
 
 #variaveis pra imagem e som
 zap = mixer.Sound("audios/whatsapp.mp3")#o local do arquivo deve conter as pastas e o nome exato do arquivo
@@ -47,20 +62,10 @@ while run:
     tela.blit(titulo, titulorect)#o titulorect é a variavel que tem o retangulo da imagem, o blit é a função que coloca a imagem na tela usando o retangulo pra definir a posição
     #bloco pra funcao de movimento do personagem
     pygame.draw.circle(tela, "pink", player_pos, 20)
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_w]:
-         player_pos.y -= 200 * dt
-    if keys[pygame.K_s]:
-         player_pos.y += 200 * dt
-    if keys[pygame.K_a]:
-         player_pos.x -= 200 * dt
-    if keys[pygame.K_d]:
-         player_pos.x += 200 * dt
-    
-
+    andar()
 
     #função que mostra as informações na tela
     pygame.display.flip()
     #Definidor de FPS
-    dt = clock.tick(60) / 1000
+    clock.tick(60)
 pygame.quit()
