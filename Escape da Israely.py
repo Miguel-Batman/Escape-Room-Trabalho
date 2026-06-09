@@ -108,9 +108,9 @@ parmariorect = parmario.get_rect(center=(326,49))
 
 #audios
 tenso = mixer.Sound('audios/tenso.mp3')
-tenso.set_volume(0.1)
+tenso.set_volume(1)
 zap = mixer.Sound('audios/whatsapp.mp3')
-zap.set_volume(0.1)
+zap.set_volume(1)
 
 #posicionamento
 dt = 0
@@ -132,6 +132,8 @@ run = True #variavel geral pro codigo funcionar
 inmenu = True #variavel pro menu inicial
 jumpscare = True #variavel pro jumpscare da israely
 quarto1 = True #variavel do quarto 1
+quarto2 = True
+animacao = True
 #variaveis pra abrir as portas
 
 inventario = []
@@ -166,6 +168,7 @@ while run: # evento geral pro jogo rodar
                 if playcrect.collidepoint(mouse_pos) or playnrect.collidepoint(mouse_pos):
                     tenso.stop()
                     inmenu = False
+
         pygame.display.update()
     while jumpscare: #loop pra aparecer o jumpscare da israely
 
@@ -219,10 +222,38 @@ Procure algo para abrir a porta.''', "white")
             keys = pygame.key.get_pressed()
             if keys[pygame.K_e]:
                 inventario.append("chave do quarto")
-        
+        pygame.display.update()
+
+    while quarto2:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+        while animacao:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+
+            tela.fill('black')
             pygame.display.update()
-                
-                
+            time.sleep(1)
+            dialogos('''Ao entrar nesse quarto, voce percebe, que essa...
+                     NÃO é a sua casa''', 'white', 35)
+            pygame.display.update()
+            time.sleep(3)
+            tela.fill('black')
+            time.sleep(0.5)
+            dialogos('''Voce PRECISA fugir dai''', 'dark red', 60)
+            pygame.display.update()
+            time.sleep(2)
+
+
+            animacao = False
+            pygame.display.update()
+
+        tela.fill('blue')
+
         pygame.display.update()
         
 
