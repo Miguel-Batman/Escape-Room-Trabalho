@@ -94,6 +94,12 @@ mapadois = pygame.image.load('imagens/mapa 2.png') #sala 2
 quadro = pygame.image.load('imagens/Tv israodio.png') #quadro de aviso da israodio 
 quadro = pygame.transform.scale(quadro,(135, 65))
 quadrorect = quadro.get_rect(midtop=(400, 10))
+
+#porao 
+
+chave = pygame.image.load('imagens/Chave porao.png')
+chave = pygame.transform.scale(chave, (50,50))
+chaverect = chave.get_rect(center=(60,15))
 #alavanca
 alaoff = pygame.image.load('imagens/alaOFF.png')#alavanca desativada
 
@@ -174,7 +180,7 @@ while run: # evento geral pro jogo rodar
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-    
+
     while inmenu: #loop pra continuar no menu inicial
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -217,7 +223,7 @@ while run: # evento geral pro jogo rodar
                 pygame.quit()
                 exit()
        
-        if "Olever" not in inventario:
+        if "Olever" not in sala:
             tela.blit(mapainicial, (0, 0))
         else:
             tela.blit(mapainicialal,(0,0))
@@ -257,6 +263,8 @@ Procure algo para abrir a porta.''', "white")
             if keys[pygame.K_e]:
                 inventario.append("chave do quarto")
         pygame.display.update()
+
+        
 
     while quarto2:
         for event in pygame.event.get():
@@ -314,6 +322,7 @@ Procure algo para abrir a porta.''', "white")
         tela.blit(portafl, portaflrect)
         tela.blit(portaar,portaarrect)
         tela.blit(alaoff, alaoffrect)
+        tela.blit(chave, chaverect)
 
 
         if player_pos.distance_to(portaarrect.center) < 80:
