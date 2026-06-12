@@ -71,7 +71,7 @@ detail = pygame.image.load('imagens/detail.png')#detalhes da tela de menu
 titulo = pygame.image.load('imagens/titulo.png')
 titulorect = titulo.get_rect(center=(400,150))
 
-israodio = pygame.image.load('imagens/israodio.gif')
+israodio = pygame.image.load('imagens/israodio.png')#jumpscare da israely
 #personagens
 perso1 = pygame.image.load('imagens/pers1.png')
 perso1rect = perso1.get_rect(center=(600, 100))
@@ -79,38 +79,66 @@ perso2 = pygame.image.load('imagens/pers2.png')
 perso2rect = perso2.get_rect(center=(600, 100))
 israely = pygame.image.load('imagens/israely.png')
 israelyrect = israely.get_rect(center=(400, 100))
+
+
 #primeiro mapa
-mapainicial = pygame.image.load('imagens/mapa inicial.png')
-computador = pygame.image.load('imagens/computador.png')
-comprect = computador.get_rect(bottomleft=(509, 50))
-computador = pygame.transform.scale(computador, (40, 40))
+mapainicial = pygame.image.load('imagens/mapa inicial.png') #Mapa com tapete
+mapainicialal = pygame.image.load('imagens/mapa inicialAL.png')#mapa com alcapao fechado
+mapainicialala = pygame.image.load('imagens/mapa inicialALA.png') #mapa com alcapao aberto
+computador = pygame.image.load('imagens/computador.png')#sprite do pc
+comprect = computador.get_rect(bottomleft=(509, 50)) #retangulo do pc pra colisao
+computador = pygame.transform.scale(computador, (40, 40)) #Mudanca de tamanho do pc
+
+#mapa 2
+mapadois = pygame.image.load('imagens/mapa 2.png') #sala 2
+quadro = pygame.image.load('imagens/Tv israodio.png') #quadro de aviso da israodio 
+quadro = pygame.transform.scale(quadro,(135, 65))
+quadrorect = quadro.get_rect(midtop=(400, 10))
+#alavanca
+alaoff = pygame.image.load('imagens/alaOFF.png')#alavanca desativada
+
+alaoff = pygame.transform.scale(alaoff, (26, 46))
+alaoffrect = alaoff.get_rect(bottomleft=(692,570))
+alaon = pygame.image.load('imagens/alaON.png') #alavanca ativa
+#alcapao
+alcapaof = pygame.image.load('imagens/alcapaof.png')
+alcapaoa = pygame.image.load('imagens/alcapaoa.png')
+
+
 #portas
-porta = pygame.image.load('imagens/portaf.png')
-porta = pygame.transform.scale(porta, (85,85))
-portarect = porta.get_rect(center=(400, 300))
-portaa = pygame.image.load('imagens/portaa.png')
+porta = pygame.image.load('imagens/portaf.png') #porta fechada
+porta = pygame.transform.scale(porta, (85,85)) #mudar tamanho da porta Fechada
+portarect = porta.get_rect(center=(400, 300)) #retangulo da porta
+portaa = pygame.image.load('imagens/portaa.png')#sprite da porta aberta(vertical)
 portaa = pygame.transform.scale(portaa, (85,85))
 portaarect = portaa.get_rect(center=(400, 300))
-portaalr = pygame.image.load('imagens/portaalr.png')
-portaalr = pygame.transform.scale(portaalr, (85,85))
-portaalrect = portaalr.get_rect(center=(60,300))
-portafl = pygame.image.load('imagens/portafl.png')
+#porta esquerda
+portaal = pygame.image.load('imagens/portaalr.png')#porta aberta(direita e esquerda)
+portaal = pygame.transform.scale(portaal, (85,85))
+portaalrect = portaal.get_rect(center=(60,300))
+portafl = pygame.image.load('imagens/portafl.png')#porta fechada esquerda
 portafl = pygame.transform.scale(portafl, (85,85))
 portaflrect = portafl.get_rect(center=(60, 300))
+#porta direita
+portaar = pygame.image.load('imagens/portaalr.png')#porta aberta(direita e esquerda)
+portaar = pygame.transform.scale(portaar, (85,85))
+portaarrect = portaar.get_rect(center=(740,300))
+portafr = pygame.image.load('imagens/portafr.png')#porta fechada direita
+portafr = pygame.transform.scale(portafr, (85,85))
+portafrrect = portafr.get_rect(center=(740, 300))
+
 armario = pygame.image.load('imagens/armario.png')#armario
 armario = pygame.transform.scale(armario, (228, 82))
 armariorect = armario.get_rect(topright=(440, 8))
-parmario = pygame.image.load('imagens/portaarmario.png')
-print(armariorect.midbottom)
+parmario = pygame.image.load('imagens/portaarmario.png') #porta do armario
 parmariorect = parmario.get_rect(center=(326,49))
-# parmariorect = parmario.get_rect(center=)
 
 
 #audios
 tenso = mixer.Sound('audios/tenso.mp3')
-tenso.set_volume(1)
+tenso.set_volume(0.1)
 zap = mixer.Sound('audios/whatsapp.mp3')
-zap.set_volume(1)
+zap.set_volume(0.1)
 
 #posicionamento
 dt = 0
@@ -118,7 +146,7 @@ eixox = 570
 eixoy = 70
 player_pos = pygame.Vector2(eixox, eixoy)
 #qual personagem jogar
-personagem = input("Escolha entre Homem ou Mulher: \n")
+personagem = "w" #input("Escolha entre Homem ou Mulher: \n")
 if personagem.lower() == "homem" or personagem.lower() == "m" or personagem.lower() == "man":
     personagem = perso1
     personagem_rect = perso1rect
@@ -127,6 +155,7 @@ elif personagem.lower() == "mulher" or personagem.lower() == "w" or personagem.l
     personagem_rect = perso2rect
 else:
     pass
+
 #variaveis verdadeiras pras cenas
 run = True #variavel geral pro codigo funcionar
 inmenu = True #variavel pro menu inicial
@@ -134,9 +163,10 @@ jumpscare = True #variavel pro jumpscare da israely
 quarto1 = True #variavel do quarto 1
 quarto2 = True
 animacao = True
-#variaveis pra abrir as portas
+#variaveis pra Abrir as coisas
 
 inventario = []
+sala = []
 
 while run: # evento geral pro jogo rodar
     #evento pra fechar a aba
@@ -187,14 +217,16 @@ while run: # evento geral pro jogo rodar
                 pygame.quit()
                 exit()
        
-        
-        tela.blit(mapainicial,(0,0))
+        if "alavancaacionada" in inventario:
+            tela.blit(mapainicialal,(0,0))
+        else:
+            tela.blit(mapainicial, (0, 0))
         tela.blit(computador, comprect)
         
         if "chave do quarto" not in inventario:
             tela.blit(portafl, portaflrect)
         else:
-            tela.blit(portaalr, portaalrect)
+            tela.blit(portaal, portaalrect)
         tela.blit(armario, armariorect)
         tela.blit(parmario, (parmariorect.x, parmariorect.y+20))
         
@@ -208,6 +240,8 @@ while run: # evento geral pro jogo rodar
             if player_pos.distance_to(portaflrect.center) < 50:
                 keys = pygame.key.get_pressed()
                 if keys[pygame.K_f]:
+                    player_pos.xy = (640, 300)
+                    quarto2 = True
                     quarto1 = False
                 acao('''Voce abriu a porta, pode fugir
                      Clique F para entrar''', "white")
@@ -241,19 +275,67 @@ Procure algo para abrir a porta.''', "white")
             dialogos('''Ao entrar nesse quarto, voce percebe, que essa...
                      NÃO é a sua casa''', 'white', 35)
             pygame.display.update()
-            time.sleep(3)
+            time.sleep(1)
             tela.fill('black')
             time.sleep(0.5)
             dialogos('''Voce PRECISA fugir dai''', 'dark red', 60)
             pygame.display.update()
-            time.sleep(2)
+            time.sleep(1)
 
-
-            animacao = False
+            
+            
             pygame.display.update()
+            tela.blit(mapadois, (0, 0))
+            tela.blit(quadro, quadrorect)
+            tela.blit(portafl, portaflrect)
+            tela.blit(portaar,portaarrect)
+            tela.blit(personagem, player_pos)
+            pygame.display.update()
+            time.sleep(0.2)
+            dialogos('''Hahahaha, Voce achou que estava seguro??''', 'white', 40)
+            pygame.display.update()
+            time.sleep(0.2)
+            tela.blit(mapadois, (0, 0))
+            tela.blit(quadro, quadrorect)
+            tela.blit(portafl, portaflrect)
+            tela.blit(portaar,portaarrect)
+            tela.blit(personagem, player_pos)
+            dialogos('''Eu chego em alguns minutos pra acabar com sua raça''', 'white', 30)
+            pygame.display.update()
+            time.sleep(0.5)
 
-        tela.fill('blue')
+            player_pos.xy = (640, 300)
+            animacao = False
+        
+        tela.blit(mapadois, (0, 0))
+        tela.blit(quadro, quadrorect)
+        tela.blit(portafl, portaflrect)
+        tela.blit(portaar,portaarrect)
+        tela.blit(alaoff, alaoffrect)
 
+        
+        if player_pos.distance_to(alaoffrect.center) < 80:
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_f]:
+                    acao('''Voce acionou a alavanca
+                     e ouviu ruidos no outro quarto''', "white")
+                    sala.append("alavancaacionada")
+        else:
+            if player_pos.distance_to(portaflrect.center) < 50:
+                acao('''Puxe a alavanca com F''', "white")
+
+
+
+        if player_pos.distance_to(portaarrect.center) < 80:
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_f]:
+                    player_pos.xy = (80, 300)
+                    quarto1 = True
+                    quarto2 = False
+                acao('''Clique F para entrar''', "white")
+
+        andar()
+        tela.blit(personagem, player_pos)
         pygame.display.update()
         
 
