@@ -329,7 +329,7 @@ Procure algo para abrir a porta.''', "white")
         if player_pos.distance_to(portaarrect.center) < 80:
                 keys = pygame.key.get_pressed()
                 if keys[pygame.K_f]:
-                    player_pos.xy = (80, 300)
+                    player_pos.xy = (90, 300)
                     quarto1 = True
                     quarto2 = False
                 acao('''Clique F para entrar''', "white")
