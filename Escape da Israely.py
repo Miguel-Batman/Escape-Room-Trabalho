@@ -217,10 +217,10 @@ while run: # evento geral pro jogo rodar
                 pygame.quit()
                 exit()
        
-        if "alavancaacionada" in inventario:
-            tela.blit(mapainicialal,(0,0))
-        else:
+        if "Olever" not in inventario:
             tela.blit(mapainicial, (0, 0))
+        else:
+            tela.blit(mapainicialal,(0,0))
         tela.blit(computador, comprect)
         
         if "chave do quarto" not in inventario:
@@ -289,6 +289,7 @@ Procure algo para abrir a porta.''', "white")
             tela.blit(quadro, quadrorect)
             tela.blit(portafl, portaflrect)
             tela.blit(portaar,portaarrect)
+            tela.blit(alaoff, alaoffrect)
             tela.blit(personagem, player_pos)
             pygame.display.update()
             time.sleep(0.2)
@@ -299,6 +300,7 @@ Procure algo para abrir a porta.''', "white")
             tela.blit(quadro, quadrorect)
             tela.blit(portafl, portaflrect)
             tela.blit(portaar,portaarrect)
+            tela.blit(alaoff, alaoffrect)
             tela.blit(personagem, player_pos)
             dialogos('''Eu chego em alguns minutos pra acabar com sua raça''', 'white', 30)
             pygame.display.update()
@@ -313,26 +315,25 @@ Procure algo para abrir a porta.''', "white")
         tela.blit(portaar,portaarrect)
         tela.blit(alaoff, alaoffrect)
 
-        
-        if player_pos.distance_to(alaoffrect.center) < 80:
-                keys = pygame.key.get_pressed()
-                if keys[pygame.K_f]:
-                    acao('''Voce acionou a alavanca
-                     e ouviu ruidos no outro quarto''', "white")
-                    sala.append("alavancaacionada")
-        else:
-            if player_pos.distance_to(portaflrect.center) < 50:
-                acao('''Puxe a alavanca com F''', "white")
-
-
 
         if player_pos.distance_to(portaarrect.center) < 80:
                 keys = pygame.key.get_pressed()
                 if keys[pygame.K_f]:
-                    player_pos.xy = (90, 300)
+                    player_pos.xy = (130, 290)
                     quarto1 = True
                     quarto2 = False
                 acao('''Clique F para entrar''', "white")
+        if "Olever" not in sala:
+                if player_pos.distance_to(alaoffrect.center) < 50:
+                    acao('''Clique F para puxar''', "white")
+                    keys = pygame.key.get_pressed()
+                    if keys[pygame.K_f]:
+                        acao('''Voce acionou a alavanca
+                         e ouviu ruidos no outro quarto''', "white")
+                        sala.append("Olever")
+        else:
+            if player_pos.distance_to(alaoffrect.center) < 80:
+                acao('''A alavanca foi acionada''', 'white')
 
         andar()
         tela.blit(personagem, player_pos)
